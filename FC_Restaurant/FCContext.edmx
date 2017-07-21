@@ -1,0 +1,1097 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DishType">
+          <Key>
+            <PropertyRef Name="DishCatagoryId" />
+          </Key>
+          <Property Name="DishCatagoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="StaffId" />
+          </Key>
+          <Property Name="StaffId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeTypeId" Type="int" Nullable="false" />
+          <Property Name="Salary" Type="int" />
+          <Property Name="PersonId" Type="int" />
+        </EntityType>
+        <EntityType Name="EmployeeType">
+          <Key>
+            <PropertyRef Name="EmployeeTypeId" />
+          </Key>
+          <Property Name="EmployeeTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="MaterialId" />
+          </Key>
+          <Property Name="MaterialId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CatagoryId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MaterialCatagory">
+          <Key>
+            <PropertyRef Name="CatagoryId" />
+          </Key>
+          <Property Name="CatagoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MaterialOrder">
+          <Key>
+            <PropertyRef Name="MaterialOrderId" />
+          </Key>
+          <Property Name="MaterialOrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="MaterialId" Type="int" />
+          <Property Name="SupplierId" Type="int" />
+        </EntityType>
+        <EntityType Name="MaterialOrderDetail">
+          <Key>
+            <PropertyRef Name="MaterialOrderDetailId" />
+          </Key>
+          <Property Name="MaterialOrderDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaterialId" Type="int" Nullable="false" />
+          <Property Name="MaterialQuantity" Type="int" Nullable="false" />
+          <Property Name="MaterialOrderId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="DishId" />
+          </Key>
+          <Property Name="DishId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DishCatagoryId" Type="int" Nullable="false" />
+          <Property Name="Descripition" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="StaffId" Type="int" Nullable="false" />
+          <Property Name="OrderNumber" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" />
+        </EntityType>
+        <EntityType Name="OrderMenuDetial">
+          <Key>
+            <PropertyRef Name="OrderMenuDetialId" />
+          </Key>
+          <Property Name="OrderMenuDetialId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="DishId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nchar" MaxLength="10" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="PersonTypeId" Type="int" />
+        </EntityType>
+        <EntityType Name="PersonTypes">
+          <Key>
+            <PropertyRef Name="PersonTypeId" />
+          </Key>
+          <Property Name="PersonTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="SupplierId" />
+          </Key>
+          <Property Name="SupplierId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PersonId" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="TableId" />
+          </Key>
+          <Property Name="TableId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TableNumber" Type="int" Nullable="false" />
+          <Property Name="TableSize" Type="int" Nullable="false" />
+          <Property Name="BookTime" Type="datetime" />
+          <Property Name="TableAvaibility" Type="bit" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TableOrder">
+          <Key>
+            <PropertyRef Name="TableOrderId" />
+          </Key>
+          <Property Name="TableOrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TableId" Type="int" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" />
+          <Property Name="EndTime" Type="datetime" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Customer_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_PersonType">
+          <End Role="EmployeeType" Type="Self.EmployeeType" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeType">
+              <PropertyRef Name="EmployeeTypeId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EmployeeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Material_MaterialCatagory">
+          <End Role="MaterialCatagory" Type="Self.MaterialCatagory" Multiplicity="1" />
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialCatagory">
+              <PropertyRef Name="CatagoryId" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="CatagoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialOrder_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+          <End Role="MaterialOrder" Type="Self.MaterialOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="SupplierId" />
+            </Principal>
+            <Dependent Role="MaterialOrder">
+              <PropertyRef Name="SupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialOrderDetail_Material">
+          <End Role="Material" Type="Self.Material" Multiplicity="1" />
+          <End Role="MaterialOrderDetail" Type="Self.MaterialOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="MaterialId" />
+            </Principal>
+            <Dependent Role="MaterialOrderDetail">
+              <PropertyRef Name="MaterialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialOrderDetail_MaterialOrder">
+          <End Role="MaterialOrder" Type="Self.MaterialOrder" Multiplicity="1" />
+          <End Role="MaterialOrderDetail" Type="Self.MaterialOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialOrder">
+              <PropertyRef Name="MaterialOrderId" />
+            </Principal>
+            <Dependent Role="MaterialOrderDetail">
+              <PropertyRef Name="MaterialOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Menu_DishType">
+          <End Role="DishType" Type="Self.DishType" Multiplicity="1" />
+          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DishType">
+              <PropertyRef Name="DishCatagoryId" />
+            </Principal>
+            <Dependent Role="Menu">
+              <PropertyRef Name="DishCatagoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="StaffId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderMenuDetial_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+          <End Role="OrderMenuDetial" Type="Self.OrderMenuDetial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="DishId" />
+            </Principal>
+            <Dependent Role="OrderMenuDetial">
+              <PropertyRef Name="DishId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderMenuDetial_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="OrderMenuDetial" Type="Self.OrderMenuDetial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="OrderMenuDetial">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_PersonTypes">
+          <End Role="PersonTypes" Type="Self.PersonTypes" Multiplicity="0..1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonTypes">
+              <PropertyRef Name="PersonTypeId" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="PersonTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Supplier">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TableOrder_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="TableOrder" Type="Self.TableOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="TableOrder">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TableOrder_Table">
+          <End Role="Table" Type="Self.Table" Multiplicity="1" />
+          <End Role="TableOrder" Type="Self.TableOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table">
+              <PropertyRef Name="TableId" />
+            </Principal>
+            <Dependent Role="TableOrder">
+              <PropertyRef Name="TableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DishType" EntityType="Self.DishType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeType" EntityType="Self.EmployeeType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaterialCatagory" EntityType="Self.MaterialCatagory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaterialOrder" EntityType="Self.MaterialOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaterialOrderDetail" EntityType="Self.MaterialOrderDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderMenuDetial" EntityType="Self.OrderMenuDetial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonTypes" EntityType="Self.PersonTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableOrder" EntityType="Self.TableOrder" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Customer_Person" Association="Self.FK_Customer_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Person" Association="Self.FK_Employee_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_PersonType" Association="Self.FK_Employee_PersonType">
+            <End Role="EmployeeType" EntitySet="EmployeeType" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Material_MaterialCatagory" Association="Self.FK_Material_MaterialCatagory">
+            <End Role="MaterialCatagory" EntitySet="MaterialCatagory" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialOrder_Supplier" Association="Self.FK_MaterialOrder_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="MaterialOrder" EntitySet="MaterialOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialOrderDetail_Material" Association="Self.FK_MaterialOrderDetail_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="MaterialOrderDetail" EntitySet="MaterialOrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialOrderDetail_MaterialOrder" Association="Self.FK_MaterialOrderDetail_MaterialOrder">
+            <End Role="MaterialOrder" EntitySet="MaterialOrder" />
+            <End Role="MaterialOrderDetail" EntitySet="MaterialOrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menu_DishType" Association="Self.FK_Menu_DishType">
+            <End Role="DishType" EntitySet="DishType" />
+            <End Role="Menu" EntitySet="Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Employee" Association="Self.FK_Order_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderMenuDetial_Menu" Association="Self.FK_OrderMenuDetial_Menu">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="OrderMenuDetial" EntitySet="OrderMenuDetial" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderMenuDetial_Order" Association="Self.FK_OrderMenuDetial_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderMenuDetial" EntitySet="OrderMenuDetial" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_PersonTypes" Association="Self.FK_Person_PersonTypes">
+            <End Role="PersonTypes" EntitySet="PersonTypes" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_Person" Association="Self.FK_Supplier_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Supplier" EntitySet="Supplier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TableOrder_Order" Association="Self.FK_TableOrder_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="TableOrder" EntitySet="TableOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TableOrder_Table" Association="Self.FK_TableOrder_Table">
+            <End Role="Table" EntitySet="Table" />
+            <End Role="TableOrder" EntitySet="TableOrder" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Customer_Person" FromRole="Customer" ToRole="Person" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="DishType">
+          <Key>
+            <PropertyRef Name="DishCatagoryId" />
+          </Key>
+          <Property Name="DishCatagoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Menus" Relationship="Self.FK_Menu_DishType" FromRole="DishType" ToRole="Menu" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="StaffId" />
+          </Key>
+          <Property Name="StaffId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Salary" Type="Int32" />
+          <Property Name="PersonId" Type="Int32" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Employee_Person" FromRole="Employee" ToRole="Person" />
+          <NavigationProperty Name="EmployeeType" Relationship="Self.FK_Employee_PersonType" FromRole="Employee" ToRole="EmployeeType" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Employee" FromRole="Employee" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="EmployeeType">
+          <Key>
+            <PropertyRef Name="EmployeeTypeId" />
+          </Key>
+          <Property Name="EmployeeTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_PersonType" FromRole="EmployeeType" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="MaterialId" />
+          </Key>
+          <Property Name="MaterialId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CatagoryId" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="MaterialCatagory" Relationship="Self.FK_Material_MaterialCatagory" FromRole="Material" ToRole="MaterialCatagory" />
+          <NavigationProperty Name="MaterialOrderDetails" Relationship="Self.FK_MaterialOrderDetail_Material" FromRole="Material" ToRole="MaterialOrderDetail" />
+        </EntityType>
+        <EntityType Name="MaterialCatagory">
+          <Key>
+            <PropertyRef Name="CatagoryId" />
+          </Key>
+          <Property Name="CatagoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Materials" Relationship="Self.FK_Material_MaterialCatagory" FromRole="MaterialCatagory" ToRole="Material" />
+        </EntityType>
+        <EntityType Name="MaterialOrder">
+          <Key>
+            <PropertyRef Name="MaterialOrderId" />
+          </Key>
+          <Property Name="MaterialOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MaterialId" Type="Int32" />
+          <Property Name="SupplierId" Type="Int32" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK_MaterialOrder_Supplier" FromRole="MaterialOrder" ToRole="Supplier" />
+          <NavigationProperty Name="MaterialOrderDetails" Relationship="Self.FK_MaterialOrderDetail_MaterialOrder" FromRole="MaterialOrder" ToRole="MaterialOrderDetail" />
+        </EntityType>
+        <EntityType Name="MaterialOrderDetail">
+          <Key>
+            <PropertyRef Name="MaterialOrderDetailId" />
+          </Key>
+          <Property Name="MaterialOrderDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaterialId" Type="Int32" Nullable="false" />
+          <Property Name="MaterialQuantity" Type="Int32" Nullable="false" />
+          <Property Name="MaterialOrderId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Material" Relationship="Self.FK_MaterialOrderDetail_Material" FromRole="MaterialOrderDetail" ToRole="Material" />
+          <NavigationProperty Name="MaterialOrder" Relationship="Self.FK_MaterialOrderDetail_MaterialOrder" FromRole="MaterialOrderDetail" ToRole="MaterialOrder" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="DishId" />
+          </Key>
+          <Property Name="DishId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DishCatagoryId" Type="Int32" Nullable="false" />
+          <Property Name="Descripition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DishType" Relationship="Self.FK_Menu_DishType" FromRole="Menu" ToRole="DishType" />
+          <NavigationProperty Name="OrderMenuDetials" Relationship="Self.FK_OrderMenuDetial_Menu" FromRole="Menu" ToRole="OrderMenuDetial" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StaffId" Type="Int32" Nullable="false" />
+          <Property Name="OrderNumber" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Order_Employee" FromRole="Order" ToRole="Employee" />
+          <NavigationProperty Name="OrderMenuDetials" Relationship="Self.FK_OrderMenuDetial_Order" FromRole="Order" ToRole="OrderMenuDetial" />
+          <NavigationProperty Name="TableOrders" Relationship="Self.FK_TableOrder_Order" FromRole="Order" ToRole="TableOrder" />
+        </EntityType>
+        <EntityType Name="OrderMenuDetial">
+          <Key>
+            <PropertyRef Name="OrderMenuDetialId" />
+          </Key>
+          <Property Name="OrderMenuDetialId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <Property Name="DishId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Menu" Relationship="Self.FK_OrderMenuDetial_Menu" FromRole="OrderMenuDetial" ToRole="Menu" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_OrderMenuDetial_Order" FromRole="OrderMenuDetial" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PersonTypeId" Type="Int32" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_Person" FromRole="Person" ToRole="Customer" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Person" FromRole="Person" ToRole="Employee" />
+          <NavigationProperty Name="PersonType" Relationship="Self.FK_Person_PersonTypes" FromRole="Person" ToRole="PersonTypes" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.FK_Supplier_Person" FromRole="Person" ToRole="Supplier" />
+        </EntityType>
+        <EntityType Name="PersonType">
+          <Key>
+            <PropertyRef Name="PersonTypeId" />
+          </Key>
+          <Property Name="PersonTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="People" Relationship="Self.FK_Person_PersonTypes" FromRole="PersonTypes" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="SupplierId" />
+          </Key>
+          <Property Name="SupplierId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PersonId" Type="Int32" />
+          <NavigationProperty Name="MaterialOrders" Relationship="Self.FK_MaterialOrder_Supplier" FromRole="Supplier" ToRole="MaterialOrder" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Supplier_Person" FromRole="Supplier" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="TableId" />
+          </Key>
+          <Property Name="TableId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TableNumber" Type="Int32" Nullable="false" />
+          <Property Name="TableSize" Type="Int32" Nullable="false" />
+          <Property Name="BookTime" Type="DateTime" Precision="3" />
+          <Property Name="TableAvaibility" Type="Boolean" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TableOrders" Relationship="Self.FK_TableOrder_Table" FromRole="Table" ToRole="TableOrder" />
+        </EntityType>
+        <EntityType Name="TableOrder">
+          <Key>
+            <PropertyRef Name="TableOrderId" />
+          </Key>
+          <Property Name="TableOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TableId" Type="Int32" Nullable="false" />
+          <Property Name="StartTime" Type="DateTime" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Precision="3" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_TableOrder_Order" FromRole="TableOrder" ToRole="Order" />
+          <NavigationProperty Name="Table" Relationship="Self.FK_TableOrder_Table" FromRole="TableOrder" ToRole="Table" />
+        </EntityType>
+        <Association Name="FK_Customer_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Menu_DishType">
+          <End Role="DishType" Type="Self.DishType" Multiplicity="1" />
+          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DishType">
+              <PropertyRef Name="DishCatagoryId" />
+            </Principal>
+            <Dependent Role="Menu">
+              <PropertyRef Name="DishCatagoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_PersonType">
+          <End Role="EmployeeType" Type="Self.EmployeeType" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeType">
+              <PropertyRef Name="EmployeeTypeId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EmployeeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="StaffId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Material_MaterialCatagory">
+          <End Role="MaterialCatagory" Type="Self.MaterialCatagory" Multiplicity="1" />
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialCatagory">
+              <PropertyRef Name="CatagoryId" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="CatagoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialOrderDetail_Material">
+          <End Role="Material" Type="Self.Material" Multiplicity="1" />
+          <End Role="MaterialOrderDetail" Type="Self.MaterialOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="MaterialId" />
+            </Principal>
+            <Dependent Role="MaterialOrderDetail">
+              <PropertyRef Name="MaterialId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialOrder_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+          <End Role="MaterialOrder" Type="Self.MaterialOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="SupplierId" />
+            </Principal>
+            <Dependent Role="MaterialOrder">
+              <PropertyRef Name="SupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialOrderDetail_MaterialOrder">
+          <End Role="MaterialOrder" Type="Self.MaterialOrder" Multiplicity="1" />
+          <End Role="MaterialOrderDetail" Type="Self.MaterialOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialOrder">
+              <PropertyRef Name="MaterialOrderId" />
+            </Principal>
+            <Dependent Role="MaterialOrderDetail">
+              <PropertyRef Name="MaterialOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderMenuDetial_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+          <End Role="OrderMenuDetial" Type="Self.OrderMenuDetial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="DishId" />
+            </Principal>
+            <Dependent Role="OrderMenuDetial">
+              <PropertyRef Name="DishId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderMenuDetial_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="OrderMenuDetial" Type="Self.OrderMenuDetial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="OrderMenuDetial">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TableOrder_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="TableOrder" Type="Self.TableOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="TableOrder">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_PersonTypes">
+          <End Role="PersonTypes" Type="Self.PersonType" Multiplicity="0..1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonTypes">
+              <PropertyRef Name="PersonTypeId" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="PersonTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Supplier">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TableOrder_Table">
+          <End Role="Table" Type="Self.Table" Multiplicity="1" />
+          <End Role="TableOrder" Type="Self.TableOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table">
+              <PropertyRef Name="TableId" />
+            </Principal>
+            <Dependent Role="TableOrder">
+              <PropertyRef Name="TableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FT_RestaurantEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="DishTypes" EntityType="Self.DishType" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="EmployeeTypes" EntityType="Self.EmployeeType" />
+          <EntitySet Name="Materials" EntityType="Self.Material" />
+          <EntitySet Name="MaterialCatagories" EntityType="Self.MaterialCatagory" />
+          <EntitySet Name="MaterialOrders" EntityType="Self.MaterialOrder" />
+          <EntitySet Name="MaterialOrderDetails" EntityType="Self.MaterialOrderDetail" />
+          <EntitySet Name="Menus" EntityType="Self.Menu" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="OrderMenuDetials" EntityType="Self.OrderMenuDetial" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="PersonTypes" EntityType="Self.PersonType" />
+          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Tables" EntityType="Self.Table" />
+          <EntitySet Name="TableOrders" EntityType="Self.TableOrder" />
+          <AssociationSet Name="FK_Customer_Person" Association="Self.FK_Customer_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menu_DishType" Association="Self.FK_Menu_DishType">
+            <End Role="DishType" EntitySet="DishTypes" />
+            <End Role="Menu" EntitySet="Menus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Person" Association="Self.FK_Employee_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_PersonType" Association="Self.FK_Employee_PersonType">
+            <End Role="EmployeeType" EntitySet="EmployeeTypes" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Employee" Association="Self.FK_Order_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Material_MaterialCatagory" Association="Self.FK_Material_MaterialCatagory">
+            <End Role="MaterialCatagory" EntitySet="MaterialCatagories" />
+            <End Role="Material" EntitySet="Materials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialOrderDetail_Material" Association="Self.FK_MaterialOrderDetail_Material">
+            <End Role="Material" EntitySet="Materials" />
+            <End Role="MaterialOrderDetail" EntitySet="MaterialOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialOrder_Supplier" Association="Self.FK_MaterialOrder_Supplier">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="MaterialOrder" EntitySet="MaterialOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialOrderDetail_MaterialOrder" Association="Self.FK_MaterialOrderDetail_MaterialOrder">
+            <End Role="MaterialOrder" EntitySet="MaterialOrders" />
+            <End Role="MaterialOrderDetail" EntitySet="MaterialOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderMenuDetial_Menu" Association="Self.FK_OrderMenuDetial_Menu">
+            <End Role="Menu" EntitySet="Menus" />
+            <End Role="OrderMenuDetial" EntitySet="OrderMenuDetials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderMenuDetial_Order" Association="Self.FK_OrderMenuDetial_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderMenuDetial" EntitySet="OrderMenuDetials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TableOrder_Order" Association="Self.FK_TableOrder_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="TableOrder" EntitySet="TableOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_PersonTypes" Association="Self.FK_Person_PersonTypes">
+            <End Role="PersonTypes" EntitySet="PersonTypes" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_Person" Association="Self.FK_Supplier_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Supplier" EntitySet="Suppliers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TableOrder_Table" Association="Self.FK_TableOrder_Table">
+            <End Role="Table" EntitySet="Tables" />
+            <End Role="TableOrder" EntitySet="TableOrders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="FT_RestaurantEntities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="Model.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DishTypes">
+            <EntityTypeMapping TypeName="Model.DishType">
+              <MappingFragment StoreEntitySet="DishType">
+                <ScalarProperty Name="DishCatagoryId" ColumnName="DishCatagoryId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="Model.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="EmployeeTypeId" ColumnName="EmployeeTypeId" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeTypes">
+            <EntityTypeMapping TypeName="Model.EmployeeType">
+              <MappingFragment StoreEntitySet="EmployeeType">
+                <ScalarProperty Name="EmployeeTypeId" ColumnName="EmployeeTypeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materials">
+            <EntityTypeMapping TypeName="Model.Material">
+              <MappingFragment StoreEntitySet="Material">
+                <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CatagoryId" ColumnName="CatagoryId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaterialCatagories">
+            <EntityTypeMapping TypeName="Model.MaterialCatagory">
+              <MappingFragment StoreEntitySet="MaterialCatagory">
+                <ScalarProperty Name="CatagoryId" ColumnName="CatagoryId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaterialOrders">
+            <EntityTypeMapping TypeName="Model.MaterialOrder">
+              <MappingFragment StoreEntitySet="MaterialOrder">
+                <ScalarProperty Name="MaterialOrderId" ColumnName="MaterialOrderId" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaterialOrderDetails">
+            <EntityTypeMapping TypeName="Model.MaterialOrderDetail">
+              <MappingFragment StoreEntitySet="MaterialOrderDetail">
+                <ScalarProperty Name="MaterialOrderDetailId" ColumnName="MaterialOrderDetailId" />
+                <ScalarProperty Name="MaterialId" ColumnName="MaterialId" />
+                <ScalarProperty Name="MaterialQuantity" ColumnName="MaterialQuantity" />
+                <ScalarProperty Name="MaterialOrderId" ColumnName="MaterialOrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="Model.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="DishId" ColumnName="DishId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="DishCatagoryId" ColumnName="DishCatagoryId" />
+                <ScalarProperty Name="Descripition" ColumnName="Descripition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="Model.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderMenuDetials">
+            <EntityTypeMapping TypeName="Model.OrderMenuDetial">
+              <MappingFragment StoreEntitySet="OrderMenuDetial">
+                <ScalarProperty Name="OrderMenuDetialId" ColumnName="OrderMenuDetialId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="DishId" ColumnName="DishId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="Model.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PersonTypeId" ColumnName="PersonTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonTypes">
+            <EntityTypeMapping TypeName="Model.PersonType">
+              <MappingFragment StoreEntitySet="PersonTypes">
+                <ScalarProperty Name="PersonTypeId" ColumnName="PersonTypeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="Model.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tables">
+            <EntityTypeMapping TypeName="Model.Table">
+              <MappingFragment StoreEntitySet="Table">
+                <ScalarProperty Name="TableId" ColumnName="TableId" />
+                <ScalarProperty Name="TableNumber" ColumnName="TableNumber" />
+                <ScalarProperty Name="TableSize" ColumnName="TableSize" />
+                <ScalarProperty Name="BookTime" ColumnName="BookTime" />
+                <ScalarProperty Name="TableAvaibility" ColumnName="TableAvaibility" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableOrders">
+            <EntityTypeMapping TypeName="Model.TableOrder">
+              <MappingFragment StoreEntitySet="TableOrder">
+                <ScalarProperty Name="TableOrderId" ColumnName="TableOrderId" />
+                <ScalarProperty Name="TableId" ColumnName="TableId" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

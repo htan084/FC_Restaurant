@@ -1,0 +1,68 @@
+﻿@model IEnumerable<FC_Restaurant.Models.DishOrderViewModel>
+
+@{
+    Layout = null;
+}
+
+    <table class="table">
+        <tr>        
+            <th>
+                @Html.DisplayNameFor(model => model.MenuViewModel.DishId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MenuViewModel.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MenuViewModel.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>Action</th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>           
+            <td>
+                <span class="dishIdClass">@Html.DisplayFor(modelItem => item.MenuViewModel.DishId)</span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenuViewModel.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenuViewModel.Price)
+            </td>
+            <td>
+                <span class="quantityClass">@Html.DisplayFor(modelItem => item.Quantity)</span>
+            </td>
+            <td>
+                <input type="button" id="edit" value="Edit" class="edit btn btn-primary"/>
+            </td>
+        </tr>
+    }    
+    </table>
+<script>
+    $(function () {
+        $('.edit').click(function () {
+            var text = $(this).parents("tr").find('.quantityClass').text();
+            var id = $(this).parents("tr").find('.dishIdClass').text();
+            var input = $('<input id="attribute" type="text" value="' + text + '" />')
+            $(this).parents("tr").find('.quantityClass').text('').append(input);
+            input.select();
+
+            input.blur(function () {
+                var text = $('#attribute').val();
+                $('#attribute').parent().text(text);
+                $('#attribute').remove();
+                $.ajax({
+                    url: '/Order/EditDishOrder',
+                    type: 'Post',
+                    data: { dishId: id, quantity: text },
+                    success: function (result) { }
+                })
+            });
+
+          
+        });
+    })  
+</script>

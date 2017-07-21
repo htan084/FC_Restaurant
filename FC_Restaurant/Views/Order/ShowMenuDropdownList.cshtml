@@ -1,0 +1,51 @@
+﻿@{
+    Layout = null;
+}
+<input id="catagoryId" value="@ViewBag.catagoryId" hidden />
+<p>
+    <select id="showMenu">
+        <option>choose your dish</option>
+    </select>
+</p>
+
+<script>
+    var catagory = $('#catagoryId').val();
+    if (catagory != null) {
+        catagory = parseInt(catagory);
+    }
+    $(function () {
+        $.ajax({
+            url: "/Order/GetDishes",
+            type: "Post",
+            data: { catagoryId : catagory},
+            dataType: "json"
+        }).done(function (json) {
+            var jsonObj = json;
+            var dropDownList = $("#showMenu")
+            if (jsonObj.length > 0) {
+                for (var i = 0; i < jsonObj.length; i++) {
+                    var dishId = jsonObj[i].dishId;
+                    var dishName = jsonObj[i].dishName;
+                    var strHtml = "<option value=" + dishId +">" + dishName + "</option>";
+                    $(strHtml).appendTo(dropDownList);
+                }
+            }
+        })
+    })
+    $(function () {
+        $("#showMenu").change(function(){
+            var id = $(this).val();
+            if (id != null) {
+                $.ajax({
+                    url: "/Order/ShowMenuDetail",
+                    type: "Post",
+                    data: { dishId: id },
+                    success: function (result) {
+                        $("#LoadDetailHere").html(result);
+                    }
+                })
+            }
+        })
+    })
+
+</script>

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<FC_Restaurant.Models.EmployeeViewModel>
+
+@{
+    ViewBag.Title = "StaffManagement";
+}
+
+<h2>StaffManagement</h2>
+
+<p>
+    <button type="button" id="create-new" class="create-new-btn btn btn-primary">Create new</button>
+</p>
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PersonId)
+        </th>
+        <th>Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <button class="editclick btn btn-primary">Edit</button>
+        </td>
+    </tr>
+}
+
+</table>
+
+<script>
+    $(function () {
+        $('#create-new').click(function () {
+            alert("hello world");
+        })                            
+    })
+    
+</script>

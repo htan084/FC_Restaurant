@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewBag.Title = "TableManagement";
+}
+
+<h2>TableManagement</h2>
+
+<button id="addNewOrder" class="btn btn-success" onclick="AddNewOrder()">Add new order</button>
+<h2><b>Current Orders</b></h2>
+<div id="LoadCurrentOrdersHere"></div>
+<div class="modal fade" id="showOrderPage-model" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Place your order</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    <select id="tableId" name="tableId">
+                        <option>Choose a table</option>
+                    </select>
+                </p>
+                <p>
+                    <select id="filter" onchange="DisplayMenuFilter(this.selectedIndex)">
+                        <option>Any Menu Type</option>
+                    </select>
+                </p>
+                <div id="LoadHere"></div>
+                <div id="LoadDetailHere"></div>
+                <p>Dish ordered</p>
+                <div id="LoadCurrentDishOrder"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="sendOrder" class="btn btn-success" >sendOrder</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+    $(function () {
+        $.ajax({
+            url: "/Order/getAvaliabeTables",
+            type: "GET",
+            dataType: "json"
+        }).done(function (json) {
+            var jsonObj = json;
+            var dropDownList = $("#tableId")
+            if (jsonObj.length > 0) {
+                for (var i = 0; i < jsonObj.length; i++) {
+                    var TableId = jsonObj[i].TableId;
+                    var TableNumber = jsonObj[i].TableNumber;
+                    var strHtml = "<option value=" + TableId + ">" + TableNumber + "</option>";
+                    $(strHtml).appendTo(dropDownList);
+                }
+            }
+        });
+    });
+
+    $(function () {
+        $.ajax({
+            url: '/Order/GetOrderList',
+            type: 'Get',
+            success: function (result) {
+                $('#LoadCurrentOrdersHere').html(result);
+            }
+        })
+    })
+
+    function AddNewOrder() {
+        $.ajax({
+            url: "/Order/ShowMenuDropdownList",
+            type: "Get",
+            success: function (result) {
+                $('#LoadHere').html(result);
+                $('#showOrderPage-model').modal("show");
+            }
+        })
+    }
+
+    $(function () {
+        $.ajax({
+            url: "/Order/GetDishType",
+            type: "GET",
+            dataType: "json"
+        }).done(function (json) {
+            var jsonObj = json;
+            var dropDownList = $("#filter")
+            if (jsonObj.length > 0) {
+                for (var i = 0; i < jsonObj.length; i++) {
+                    var DishCatagoryId = jsonObj[i].DishCatagoryId;
+                    var DishcatagoryName = jsonObj[i].DishcatagoryName;
+                    var strHtml = "<option value=" + DishCatagoryId + ">" + DishcatagoryName + "</option>";
+                    $(strHtml).appendTo(dropDownList);
+                }
+            }
+        });
+    });
+
+    $(function () {       
+        $('#sendOrder').click(function () {
+            var tableNumber = $('#tableId').val();
+            $.ajax({
+                url: '/Order/FinaliseOrder',
+                type: 'Post',
+                data: { tableId: tableNumber },
+                success: function (result) {
+                    $('#showOrderPage-model').modal("hide");
+                    location.reload();
+                }
+            })
+        })
+    })
+    function DisplayMenuFilter(id) {
+        $.ajax({
+            url: "/Order/ShowMenuDropdownList",
+            type: "Post",
+            data: { catagoryId: id },
+            success: function (result) {
+                $('#LoadHere').html(result);
+            }
+        })
+    }
+</script>

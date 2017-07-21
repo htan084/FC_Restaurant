@@ -1,0 +1,42 @@
+﻿@model FC_Restaurant.Models.MenuViewModel
+
+@{
+    Layout = null;
+}
+ 
+        <form class="form-horizontal" id="orderDishForm">
+            
+            <label>Price: </label>
+            <label>$@Model.Price</label><br />
+            <input id="dishId" name="dishId" value="@Model.DishId" hidden />
+            <label>Order Quantity</label>
+            <input type="text" id="quantity" name="quantity" />
+            <button type="button" id="save-orders" class="save-orders-btn btn btn-primary">Save dish</button>
+         </form>
+
+
+<script>
+    $(function () {
+        $('#save-orders').click(function () {
+            var formData = $("#orderDishForm").serialize();
+            $.ajax({
+                url: '/Order/AddDish',
+                type: 'Post',
+                data: formData,
+                success: function (result) {
+                    $('#quantity').val("");
+                    showDishOrder();
+                }
+            })
+        })
+    })    
+        function showDishOrder() {
+            $.ajax({
+                url: '/Order/ViewOrderedDish',
+                type: 'Get',
+                success: function (result) {
+                    $('#LoadCurrentDishOrder').html(result);
+                }
+            })
+        }       
+</script>
